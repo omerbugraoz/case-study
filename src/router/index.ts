@@ -17,6 +17,11 @@ const router = createRouter({
       name: 'Assets',
       component: () => import('../views/AssetsPage.vue'),
     },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'NotFound',
+      component: () => import('../views/NotFound.vue'),
+    },
   ],
 })
 
