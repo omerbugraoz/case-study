@@ -2,7 +2,7 @@
 
 ## 🚀 Live Demo
 
-[Live Demo Link](case-study-rho.vercel.app) 
+[Live Demo Link](https://case-study-rho.vercel.app)
 
 ## 📝 Description
 
@@ -107,18 +107,21 @@ src/
 - Web Worker Architecture: WebSocket connections and data processing are handled in a separate thread to prevent blocking the main UI thread. This ensures smooth user experience even with high-frequency data updates.
 
 - Rate Limiting: Implemented a buffer system that collects ticks for 1 second before sending them in batches. This prevents overwhelming both the client and server:
+
   - Reduces unnecessary UI updates
   - Respects API rate limits
   - Only sends latest price per symbol
   - Optimizes network usage
 
 - Error Handling:
+
   - Automatic reconnection with exponential backoff
   - Distinguishes between manual disconnects and errors
   - Proper cleanup of resources on disconnect
   - Comprehensive error reporting to UI
 
 - Efficient Memory Management:
+
   - Uses Set for event listeners to prevent duplicates
   - Cleans up buffer periodically
   - Proper nulling of WebSocket references
