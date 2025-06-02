@@ -17,7 +17,7 @@ export class ForexService {
   constructor() {
     this.worker = ForexWorker as Worker
 
-    // Worker'dan gelen mesajla
+    // Worker'dan gelen mesajları handle ediyoruz
     this.worker.onmessage = (event: MessageEvent<WorkerToMain>) => {
       const message = event.data
       switch (message.type) {
@@ -38,24 +38,29 @@ export class ForexService {
     }
   }
 
+  //worker'a subscribe mesajı gönderiyoruz
   public subscribePairs(pairs: string[]) {
     const message = { type: 'subscribe', payload: { pairs } }
     this.worker.postMessage(message)
   }
 
+  //worker'a unsubscribe mesajı gönderiyoruz
   public unsubscribeAll() {
     const message = { type: 'unsubscribe', payload: null }
     this.worker.postMessage(message)
   }
 
+  //tick geldiğinde callback çağırıyoruz
   public onTick(fn: TickCallback) {
     this.tickListeners.add(fn)
   }
 
+  //status geldiğinde callback çağırıyoruz
   public onStatus(fn: StatusCallback) {
     this.statusListeners.add(fn)
   }
 
+  //bağlantıyı kapatıyoruz
   public disconnect() {
     this.unsubscribeAll()
   }
