@@ -13,19 +13,31 @@
       />
     </div>
     <DataTable
-      :value="tickArray"
+      :value="isLoading ? loadingRows : tickArray"
       tableStyle="min-width: 100%"
       size="small"
       v-model:selection="selectedPairs"
-      selectionMode="multiple"
+      :selectionMode="isLoading ? undefined : 'multiple'"
       dataKey="symbol"
     >
-      <Column selectionMode="multiple"></Column>
-      <Column field="symbol" header="Pair" sortable />
-      <Column field="price" header="Price" sortable />
+      <Column v-if="!isLoading" selectionMode="multiple"></Column>
+      <Column field="symbol" header="Pair" sortable>
+        <template #body="{ data }" v-if="isLoading">
+          <Skeleton width="8rem" height="1.2rem" />
+        </template>
+      </Column>
+      <Column field="price" header="Price" sortable>
+        <template #body="{ data }" v-if="isLoading">
+          <Skeleton width="6rem" height="1.2rem" />
+        </template>
+      </Column>
       <Column field="changePercent" header="% Change" sortable>
         <template #body="{ data }">
+          <template v-if="isLoading">
+            <Skeleton width="5rem" height="1.2rem" />
+          </template>
           <span
+            v-else
             :class="{
               'text-green-600': parseFloat(data.changePercent) > 0,
               'text-red-600': parseFloat(data.changePercent) < 0,
@@ -35,8 +47,16 @@
           </span>
         </template>
       </Column>
-      <Column field="volume" header="Volume" sortable />
-      <Column field="lastUpdate" header="Last Update" sortable />
+      <Column field="volume" header="Volume" sortable>
+        <template #body="{ data }" v-if="isLoading">
+          <Skeleton width="7rem" height="1.2rem" />
+        </template>
+      </Column>
+      <Column field="lastUpdate" header="Last Update" sortable>
+        <template #body="{ data }" v-if="isLoading">
+          <Skeleton width="6rem" height="1.2rem" />
+        </template>
+      </Column>
     </DataTable>
   </div>
 
@@ -68,6 +88,7 @@ import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import Button from 'primevue/button'
 import Dialog from 'primevue/dialog'
+import Skeleton from 'primevue/skeleton'
 import AddAssetsContent from '../components/common/AddAssetsContent/AddAssetsContent.vue'
 import { useAssetsStore } from '../stores/assets'
 import type { IBuyAssetPayload } from '../types/assets'
@@ -77,6 +98,7 @@ import { useForexStore } from '../stores/forex'
 const isAddAssetsContentVisible = ref(false)
 const selectedPairs = ref<any[]>([])
 const assetsStore = useAssetsStore()
+const isLoading = ref(true)
 
 const forexStore = useForexStore()
 
@@ -99,6 +121,14 @@ const tickArray = computed(() => {
   })
 })
 
+const loadingRows = Array(10).fill({
+  symbol: '',
+  price: '',
+  changePercent: '',
+  volume: '',
+  lastUpdate: '',
+})
+
 const handleBuyAssets = (assets: IBuyAssetPayload[]) => {
   assets.forEach((asset) => {
     assetsStore.buyAsset(asset)
@@ -109,6 +139,10 @@ const handleBuyAssets = (assets: IBuyAssetPayload[]) => {
 
 onMounted(() => {
   forexStore.start()
+  // Simulate initial loading
+  setTimeout(() => {
+    isLoading.value = false
+  }, 1000)
 })
 
 onUnmounted(() => {
