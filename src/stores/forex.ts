@@ -14,7 +14,6 @@ export const useForexStore = defineStore('forex', () => {
 
   const status = ref<string>('disconnected')
   const statusInfo = ref<string | undefined>(undefined)
-  const errorLog = ref<string[]>([])
 
   const service = new ForexService()
 
@@ -35,10 +34,6 @@ export const useForexStore = defineStore('forex', () => {
     statusInfo.value = st.info
   })
 
-  service.onError((err) => {
-    errorLog.value.push(err)
-  })
-
   const start = () => {
     service.subscribePairs(FOREX_PAIRS)
   }
@@ -51,7 +46,6 @@ export const useForexStore = defineStore('forex', () => {
     ticks,
     status,
     statusInfo,
-    errorLog,
     start,
     stop,
   }

@@ -56,20 +56,6 @@ export class ForexService {
     this.statusListeners.add(fn)
   }
 
-  public onError(fn: ErrorCallback) {
-    this.errorListeners.add(fn)
-  }
-
-  public offTick(fn: TickCallback) {
-    this.tickListeners.delete(fn)
-  }
-  public offStatus(fn: StatusCallback) {
-    this.statusListeners.delete(fn)
-  }
-  public offError(fn: ErrorCallback) {
-    this.errorListeners.delete(fn)
-  }
-
   public disconnect() {
     this.unsubscribeAll()
   }
