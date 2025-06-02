@@ -19,6 +19,9 @@
       v-model:selection="selectedPairs"
       selectionMode="multiple"
       dataKey="symbol"
+      scrollable
+      :scrollHeight="'calc(100vh - 200px)'"
+      :virtualScrollerOptions="{ itemSize: 46 }"
     >
       <Column selectionMode="multiple"></Column>
       <Column field="symbol" header="Pair" sortable />
