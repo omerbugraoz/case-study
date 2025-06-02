@@ -1,6 +1,6 @@
 export interface IAsset {
   id: number
-  pair: string
+  symbol: string
   price: number
   volume: number
   changePercent: number
@@ -14,7 +14,7 @@ export interface IAssetStore {
 
 export interface IBuyAssetPayload {
   id: number
-  pair: string
+  symbol: string
   price: number
   volume: number
   changePercent: number

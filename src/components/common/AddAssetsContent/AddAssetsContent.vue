@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-4">
     <div class="flex flex-col gap-4">
       <div v-for="asset in assets" :key="asset.id" class="flex justify-between items-center gap-4">
-        <span>{{ asset.pair }} Volume</span>
+        <span>{{ asset.symbol }} Volume</span>
         <InputNumber v-model="asset.volume" :min="1" :showButtons="false" />
       </div>
     </div>
