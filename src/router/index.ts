@@ -1,7 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import TrackerPage from '../views/TrackerPage.vue'
-import AssetsPage from '../views/AssetsPage.vue'
-import NotFound from '../views/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,17 +10,17 @@ const router = createRouter({
     {
       path: '/tracker',
       name: 'Tracker',
-      component: TrackerPage,
+      component: () => import('../views/TrackerPage.vue'),
     },
     {
       path: '/assets',
       name: 'Assets',
-      component: AssetsPage,
+      component: () => import('../views/AssetsPage.vue'),
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
-      component: NotFound,
+      component: () => import('../views/NotFound.vue'),
     },
   ],
 })
