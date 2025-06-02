@@ -1,6 +1,7 @@
 <template>
-  <div class="flex min-h-screen">
-    <Sidebar class="w-64 flex-shrink-0" />
+  <div class="md:flex md:min-h-screen">
+    <Sidebar />
+    <MobileMenu />
     <main class="flex-grow bg-gray-50">
       <router-view />
     </main>
@@ -9,4 +10,5 @@
 
 <script setup lang="ts">
 import Sidebar from './components/layout/Sidebar/Sidebar.vue'
+import MobileMenu from './components/layout/MobileMenu/MobileMenu.vue'
 </script>
