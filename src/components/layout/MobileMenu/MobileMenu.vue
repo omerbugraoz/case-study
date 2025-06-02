@@ -17,6 +17,7 @@
               :href="href"
               :class="{ 'bg-primary/20 text-primary': isActive }"
               class="flex items-center px-4 py-2 rounded-md gap-2 mt-2"
+              @click="toggleSidebar"
             >
               <span :class="item.icon" />
               <span>{{ item.name }}</span>

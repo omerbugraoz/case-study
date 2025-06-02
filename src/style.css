@@ -1,3 +1,17 @@
-@import "tailwindcss";
-@import "tailwindcss-primeui";
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
 @import 'primeicons/primeicons.css';
+
+.p-datatable-table,
+.p-datatable-column-title {
+  @media (max-width: 768px) {
+    font-size: 12px !important;
+  }
+}
+
+.p-datatable-sort-icon {
+  @media (max-width: 768px) {
+    width: 10px !important;
+    height: 10px !important;
+  }
+}
